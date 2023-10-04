@@ -15,6 +15,7 @@ import Searchresult  from './pagesApp/Searchresult';
 import MovieDetial from './pagesApp/MovieDetial';
 import Watchedmovies from './pagesApp/Watchedmovies';
 import Nowatchedlist from './pagesApp/Nowatchedlist';
+import Notfound from './pagesApp/Notfound';
 
 
 
@@ -42,6 +43,7 @@ function App() {
     <Route path='/MovieDetial/:id' element={ <MovieDetial />} />
     <Route path='/Watchedmovies'    element={ <Watchedmovies/>}/>
     <Route path='/Nowatchedlist'  element={<Nowatchedlist/> }   />
+    <Route path='/*' element={<Notfound/>} />
      
     </Routes>
     </div>
