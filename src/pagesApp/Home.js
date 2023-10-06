@@ -1,21 +1,25 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Search from '../components/Search/Search';
-import usePagination from "../components/usePagination";
+import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import { addToWishlist, removeFromWishlist } from "../store/slices/moiveSlicet"
+import  usePagination   from "../components/usePagination";
+
+
 
 
 export default function Home() {
+
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   
   const dispatch = useDispatch(); // Initialize dispatch
 
-  const { currentPage, nextPage, previousPage } = usePagination(1);
+   const { currentPage, nextPage, previousPage } = usePagination(1);
   const wishlist = useSelector((state) => state.wishlist); // Get wishlist from Redux state
 
   async function getMovies(page) {
@@ -36,25 +40,32 @@ export default function Home() {
   }, [currentPage]);
 
  // const log_f = useSelector((state) => state.logFlage.log_flag);
- const hearton = require("../assets/iconheart.png");
- const heartoff = require("../assets/heartnativ.png");
+ // change color of favorit
+ const [active, setActive] = useState(false);
+ 
+ const imgchangehandler = (event) => {
+     
+      if(!active ){
+        event.target.style.color = 'yellow'
+        setActive(true);
+      }else {
+        event.target.style.color = 'red'}
+      }
+    
 
- const [img, setimg] = useState(false);
-
- const imgchangehandler = () => {
-     if(!img) {
-         setimg(true);
-     }else{
-         setimg(false)
-     }
- };
 //navigation to mive detials
 const navigat=useNavigate();
 const redictmoviedetial = (id) => {
   navigat(`/MovieDetial/${id}`);
   console.log("navigate to movi detial")
 }
+const [icon, setIcon] = useState('FaRegHeart')
 
+    //place your changeTheme function here with the added code
+
+    // const themeIsLight = (icon === 'FaRegHeart');
+    // const Icon = themeIsLight ? <FaRegHeart size={20} onClick={() => changeTheme('FaRegHeart') }/>
+    //                           : <FaHeart size={20} onClick={() => changeTheme('FaHeart') }/>
 
   // Function to handle adding/removing movies from wishlist
   const handleWishlistToggle = (movie) => {
@@ -70,14 +81,15 @@ const redictmoviedetial = (id) => {
   return (
   <>
     <Search />
-    <div className="row text-center position-relative">
+    <div className="row text-center position-relative m-3">
       {movies.length > 0 ? (
         movies.map((movie, index) => (
-          <div key={index} className="col-lg-3 col-md-3 mb-5 position-relative p-4">
-            <Link>
-              <div 
-                className="card h-50 "   
-                style={{ backgroundColor: "lightgrey" }}
+         
+          <div key={index} className="col-lg-2 col-md-3 mb-5 position-relative ">
+            <Link style={{textDecoration: 'none'}}  >
+              <div  
+                className="card "   
+                style={{ backgroundColor: ""}}
               >
                 <img
                   src={`https://image.tmdb.org/t/p/w500//${movie.poster_path}`}
@@ -90,16 +102,24 @@ const redictmoviedetial = (id) => {
                   
                 />
 
-                <div className="card-body d-flex   flex-column">
-                  <h5 >{movie.title}</h5>
-                 
+                <div className="card-body d-flex text-start  flex-column">
+                  <div  className="w-100">
+                  <h6  className="w-100 text-nowrap">{movie.title}</h6>
+                  </div>
                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                     <p className="card-text">{movie.release_date} </p>
-                    <img src={heartoff} alt='bulb-off'  onClick={(event) => {
+                    
+                    <div>
+
+                    </div>
+                    <FaHeart 
+                   
+                    onClick={(event) => {
                       handleWishlistToggle(movie);
                       event.preventDefault();
-                      imgchangehandler();
-                    }} style={{width:'1em' ,height:'1em'}}  />
+                      imgchangehandler(event);
+              
+                    }}  />
                  
                   </div>
                    
@@ -110,10 +130,15 @@ const redictmoviedetial = (id) => {
               </div>
             </Link>
           </div>
+         
         ))
       ) : (
         <i className="fas fa-spinner fa-spin fa-2x justify-content-center"></i>
       )}
+      {
+       
+      
+      
       <nav aria-label="Page navigation example">
         <ul className="pagination justify-content-center">
           <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
@@ -131,8 +156,9 @@ const redictmoviedetial = (id) => {
             </button>
           </li>
         </ul>
-      </nav>
+      </nav> 
+      }
     </div>
     </>
   );
-}
+    }
