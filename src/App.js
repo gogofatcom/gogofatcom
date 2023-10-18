@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import { useSelector } from 'react-redux';
+
 import { Languagecontext } from './contex/language';
 import Header from './components/Header/Header';
 
@@ -30,7 +30,7 @@ function App() {
    
    <BrowserRouter>
    <Languagecontext.Provider value={{contextlang,setContextlang}}>
-      <div className={contextlang==='ar'?'text-right':'textleft'}
+      <div className={contextlang==='ar'?'text-right':'text-left'}
       dir={contextlang==='ar'?'rtl':'ltr'}>
    
 

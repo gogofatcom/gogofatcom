@@ -7,7 +7,7 @@ setLanguage: () => {},});
 
 const Initialstate={
     name:'language',
-    aviablelang:['ar','en'],
+    aviablelang:[ 'ar','en'],
     defaultlang:'en'
 }
 

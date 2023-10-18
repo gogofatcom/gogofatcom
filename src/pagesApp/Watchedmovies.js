@@ -2,6 +2,7 @@ import React, { useEffect } from "react"
 import { FaHardHat } from "react-icons/fa";
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom";
+import { FaHeart, FaRegHeart } from 'react-icons/fa';
 
 export default function Watchedmovies() {
 
@@ -40,7 +41,8 @@ export default function Watchedmovies() {
                             <div className="card-body">
                             <div style={{ display: 'flex', flexDirection: 'row',  justifyContent: 'space-between' }}>
                             <h5 className="card-title">{movie.title}</h5>
-                           <FaHardHat/>
+
+                           <FaHeart />
 
                           </div>
                                 

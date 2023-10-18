@@ -42,31 +42,27 @@ export default function Home() {
  // const log_f = useSelector((state) => state.logFlage.log_flag);
  // change color of favorit
  const [active, setActive] = useState(false);
- 
+ const themeIsLight = (icon === 'FaRegHeart');
+ const [icon, setIcon] = useState('FaRegHeart')
  const imgchangehandler = (event) => {
-     
-      if(!active ){
-        event.target.style.color = 'yellow'
-        setActive(true);
-      }else {
-        event.target.style.color = 'red'}
-      }
-    
+  const Icon = themeIsLight ? <FaRegHeart size={20} onClick={() => setIcon('FaRegHeart') }/>
+  : <FaHeart size={20} onClick={() => setIcon('FaHeart') }/>
 
+    
+ }
 //navigation to mive detials
 const navigat=useNavigate();
 const redictmoviedetial = (id) => {
   navigat(`/MovieDetial/${id}`);
   console.log("navigate to movi detial")
 }
-const [icon, setIcon] = useState('FaRegHeart')
 
-    //place your changeTheme function here with the added code
 
-    // const themeIsLight = (icon === 'FaRegHeart');
-    // const Icon = themeIsLight ? <FaRegHeart size={20} onClick={() => changeTheme('FaRegHeart') }/>
-    //                           : <FaHeart size={20} onClick={() => changeTheme('FaHeart') }/>
 
+   // place your changeTheme function here with the added code
+
+  
+    
   // Function to handle adding/removing movies from wishlist
   const handleWishlistToggle = (movie) => {
     if (wishlist.includes((m) => m == movie)) {
@@ -81,7 +77,7 @@ const [icon, setIcon] = useState('FaRegHeart')
   return (
   <>
     <Search />
-    <div className="row text-center position-relative m-3">
+    <div className="row  position-relative m-3">
       {movies.length > 0 ? (
         movies.map((movie, index) => (
          
@@ -104,14 +100,12 @@ const [icon, setIcon] = useState('FaRegHeart')
 
                 <div className="card-body d-flex text-start  flex-column">
                   <div  className="w-100">
-                  <h6  className="w-100 text-nowrap">{movie.title}</h6>
+                  <h6  className="w-100 text-start ">{movie.title}</h6>
                   </div>
                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                     <p className="card-text">{movie.release_date} </p>
                     
-                    <div>
-
-                    </div>
+                  
                     <FaHeart 
                    
                     onClick={(event) => {

@@ -10,6 +10,12 @@ import { Link } from 'react-router-dom';
 
 export default function Header() {
   const {contextlang,setContextlang}=useContext(Languagecontext);
+  const handleLanguageChange = (event) => {
+    const lang = event.target.value;
+   setContextlang(lang);
+   console.log(lang);
+  
+ };
 
   const watchedlist = useSelector((state) => state.wishlist);
   return (
@@ -26,9 +32,9 @@ export default function Header() {
               
               
                 <Link >
-                  <select  style={{border:'0px' ,marginTop:'10px', marginRight:'10px'}} id='headernav'>
-                    <option   onClick={ ()=> setContextlang('en') } > en </option>
-                    <option  onClick={ ()=> setContextlang('ar') }> ar </option>
+                  <select    style={{border:'0px' ,marginTop:'10px', marginRight:'10px'}} id='headernav'>
+                    <option onClick={handleLanguageChange} > en </option>
+                    <option  onClick={handleLanguageChange}> ar </option>
                   </select>
                 </Link>
                 <div>
